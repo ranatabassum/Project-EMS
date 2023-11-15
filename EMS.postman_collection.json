@@ -1,0 +1,2669 @@
+{
+	"info": {
+		"_postman_id": "cc1c3adb-833b-4749-9a75-77b27440e247",
+		"name": "EMS",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "30271243"
+	},
+	"item": [
+		{
+			"name": "Within-Scope-Folder",
+			"item": [
+				{
+					"name": "registerTrainee New trainee create",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\":\"{{$randomEmail}}\",\r\n    \"password\":\"123456\"\r\n\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/auth/register/trainee",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"auth",
+								"register",
+								"trainee"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "registerTrainee Check existing user",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 406\", function () {\r",
+									"    pm.response.to.have.status(406);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\":\"user@gmail.com\",\r\n    \"password\":\"123456\"\r\n\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/auth/register/trainee",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"auth",
+								"register",
+								"trainee"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 406\", function () {\r",
+									"    pm.response.to.have.status(406);\r",
+									"});\r",
+									"var jsonData = JSON.parse(responseBody);\r",
+									"var token = jsonData['access_token'];\r",
+									"pm.environment.set(\"token\", jsonData.token)"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\":\"email@gmail.com\",\r\n    \"password\":\"123456\"\r\n\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/auth/login",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "login invalid email",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 406\", function () {\r",
+									"    pm.response.to.have.status(406);\r",
+									"});\r",
+									"var jsonData = JSON.parse(responseBody);\r",
+									"var token = jsonData['access_token'];\r",
+									"pm.environment.set(\"token\", jsonData.token)"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\":\"admin@gmail.com\",\r\n    \"password\":\"1234rg\"\r\n\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/auth/login",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "login invalid password",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"var jsonData = JSON.parse(responseBody);\r",
+									"var token = jsonData['access_token'];\r",
+									"pm.environment.set(\"token\", jsonData.token)"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\":\"admin@gmail.com\",\r\n    \"password\":\"123456\"\r\n\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/auth/login",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get Batch by ID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/batch/:id",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"batch",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get all Batches",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/batch",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"batch"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create Task",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});\r",
+									"\r",
+									"var jsonData = JSON.parse(responseBody);\r",
+									"var id = jsonData['id'];\r",
+									"pm.environment.set(\"id\", jsonData.id)\r",
+									"var taskType = jsonData['taskType'];\r",
+									"pm.environment.set(\"taskType\", jsonData.taskType)"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "assignedBy",
+									"value": "2345",
+									"type": "text"
+								},
+								{
+									"key": "batchId",
+									"value": "222",
+									"type": "text"
+								},
+								{
+									"key": "title",
+									"value": "Test Plan",
+									"type": "text"
+								},
+								{
+									"key": "description",
+									"value": "Write test Plan",
+									"type": "text"
+								},
+								{
+									"key": "taskType",
+									"value": "MID_PROJECT",
+									"type": "text"
+								},
+								{
+									"key": "submissionDate",
+									"value": "2023/04/12",
+									"type": "text"
+								},
+								{
+									"key": "file",
+									"value": "",
+									"type": "file"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/task",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"task"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get all Tasks",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/task",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"task"
+							],
+							"query": [
+								{
+									"key": "batchId",
+									"value": "55",
+									"disabled": true
+								},
+								{
+									"key": "taskType",
+									"value": null,
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update Weightage",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"dailyTaskEvaluationWeightage\": 10.0,\r\n  \"miniProjectEvaluationWeightage\": 15.0,\r\n  \"midProjectEvaluationWeightage\": 20.0,\r\n  \"finalProjectEvaluationWeightage\": 40.0,\r\n  \"domainWeightage\": 5.0,\r\n  \"managerEvaluationWeightage\": 10.0,\r\n  \"trainingWeightage\": 10.0,\r\n  \"hrInterviewEvaluationWeightage\": 5.0\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/weight",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"weight"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get Weightage",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/weight",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"weight"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "generate Score",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"var jsonData = JSON.parse(responseBody);\r",
+									"var bid = jsonData['bid'];\r",
+									"pm.environment.set(\"bid\", jsonData.bid)\r",
+									"var taskType = jsonData['taskType'];\r",
+									"pm.environment.set(\"taskType\", jsonData.taskType)"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/final-score/2?recalculate=true",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"final-score",
+								"2"
+							],
+							"query": [
+								{
+									"key": "recalculate",
+									"value": "true"
+								},
+								{
+									"key": "batchId",
+									"value": "2",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "generate Score invalid batchID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 404\", function () {\r",
+									"    pm.response.to.have.status(404);\r",
+									"});\r",
+									"var jsonData = JSON.parse(responseBody);\r",
+									"var bid = jsonData['bid'];\r",
+									"pm.environment.set(\"bid\", jsonData.bid)\r",
+									"var taskType = jsonData['taskType'];\r",
+									"pm.environment.set(\"taskType\", jsonData.taskType)"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/final-score/5555?recalculate=true",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"final-score",
+								"5555"
+							],
+							"query": [
+								{
+									"key": "recalculate",
+									"value": "true"
+								},
+								{
+									"key": "batchId",
+									"value": "w",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get Evaluation",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"var jsonData = JSON.parse(responseBody);\r",
+									"var bid = jsonData['bid'];\r",
+									"pm.environment.set(\"bid\", jsonData.bid)\r",
+									"var taskType = jsonData['taskType'];\r",
+									"pm.environment.set(\"taskType\", jsonData.taskType)"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/evaluation?batchId=2&taskType=MID_PROJECT",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"evaluation"
+							],
+							"query": [
+								{
+									"key": "batchId",
+									"value": "2"
+								},
+								{
+									"key": "taskType",
+									"value": "MID_PROJECT"
+								},
+								{
+									"key": "date",
+									"value": "2023/10/12",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getEvaluation invalid batchId",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 404\", function () {\r",
+									"    pm.response.to.have.status(404);\r",
+									"});\r",
+									"var jsonData = JSON.parse(responseBody);\r",
+									"var bid = jsonData['bid'];\r",
+									"pm.environment.set(\"bid\", jsonData.bid)\r",
+									"var taskType = jsonData['taskType'];\r",
+									"pm.environment.set(\"taskType\", jsonData.taskType)"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/evaluation?batchId=455&taskType=MID_PROJECT",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"evaluation"
+							],
+							"query": [
+								{
+									"key": "batchId",
+									"value": "455"
+								},
+								{
+									"key": "taskType",
+									"value": "MID_PROJECT"
+								},
+								{
+									"key": "date",
+									"value": "2023/10/12",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getEvaluation invalid taskType",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 404\", function () {\r",
+									"    pm.response.to.have.status(404);\r",
+									"\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/evaluation?batchId=2&taskType=xyz",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"evaluation"
+							],
+							"query": [
+								{
+									"key": "batchId",
+									"value": "2"
+								},
+								{
+									"key": "taskType",
+									"value": "xyz"
+								},
+								{
+									"key": "date",
+									"value": "2023/10/12",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "user-controller",
+			"item": [
+				{
+					"name": "getUser",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/user/:id",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"user",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "788"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getUserCount",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/user/count",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"user",
+								"count"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getUserQuery",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/user/:userType",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"user",
+								":userType"
+							],
+							"variable": [
+								{
+									"key": "userType",
+									"value": "Trainee",
+									"description": "Trainee"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateUser",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "fullName",
+									"value": "Rana Tabassum",
+									"type": "text"
+								},
+								{
+									"key": "contactNo",
+									"value": "0735672",
+									"type": "text"
+								},
+								{
+									"key": "dob",
+									"value": "28/03/23",
+									"type": "text"
+								},
+								{
+									"key": "educationalInstitute",
+									"value": "AIUB",
+									"type": "text"
+								},
+								{
+									"key": "degreeName",
+									"value": "CSE",
+									"type": "text"
+								},
+								{
+									"key": "cgpa",
+									"value": "3.83",
+									"type": "text"
+								},
+								{
+									"key": "designation",
+									"value": "SQA ",
+									"type": "text"
+								},
+								{
+									"key": "expertise",
+									"value": "CSE",
+									"type": "text"
+								},
+								{
+									"key": "joiningDate",
+									"value": "12/01/22",
+									"type": "text"
+								},
+								{
+									"key": "presentAddress",
+									"value": "waq",
+									"type": "text"
+								},
+								{
+									"key": "profilePictureId",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "file",
+									"type": "file",
+									"src": []
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/user/:id",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"user",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "AuthController",
+			"item": [
+				{
+					"name": "login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"var jsonData = JSON.parse(responseBody);\r",
+									"var token = jsonData['access_token'];\r",
+									"pm.environment.set(\"token\", jsonData.token)"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\":\"admin@gmail.com\",\r\n    \"password\":\"123456\"\r\n\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/auth/login",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "registerAdmin",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\":\"homayun1@gmail.com\",\r\n    \"password\":\"123456\"\r\n\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/auth/register/admin",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"auth",
+								"register",
+								"admin"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "registerTrainee",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\":\"user444@gmail.com\",\r\n    \"password\":\"123456\"\r\n\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/auth/register/trainee",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"auth",
+								"register",
+								"trainee"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "registerTrainer",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\":\"quadir@gmail.com\",\r\n    \"password\":\"123456\"\r\n\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/auth/register/trainer",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"auth",
+								"register",
+								"trainer"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updatePassword",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\"email\":\"admin@gmail.com\",\r\n\"oldPassword\":\"1234567\",\r\n\"newPassword\":\"123456\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/auth/update-password",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"auth",
+								"update-password"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "BatchController",
+			"item": [
+				{
+					"name": "createBatch",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});\r",
+									"var jsonData = JSON.parse(responseBody);\r",
+									"var id = jsonData['id'];\r",
+									"pm.environment.set(\"id\", jsonData.id)\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Cookie",
+								"value": "token={{token}}",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\"batchName\":\"DEV OPS\",\r\n\"description\":\"DEV OPS 4\",\r\n\"startDate\":\"01/08/23\",\r\n\"endDate\":\"01/11/23\",\r\n\"status\":true,\r\n\"userIds\":[\r\n    2\r\n]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/batch",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"batch"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getBatch",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/batch/:id",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"batch",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "{{id}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateBatch",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\"batchName\":\"SQA\",\r\n\"description\":\"Manual SQA- 20\",\r\n\"startDate\":\"01/08/23\",\r\n\"endDate\":\"01/11/23\",\r\n\"status\":true,\r\n\"userIds\":[1,2]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/batch/2",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"batch",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteBatch",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/batch/57",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"batch",
+								"57"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getBatchByUserId",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/batch/user/:id",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"batch",
+								"user",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getBatches",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/batch",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"batch"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "task-controller",
+			"item": [
+				{
+					"name": "createTask",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});\r",
+									"\r",
+									"var jsonData = JSON.parse(responseBody);\r",
+									"var id = jsonData['id'];\r",
+									"pm.environment.set(\"id\", jsonData.id)\r",
+									"var taskType = jsonData['taskType'];\r",
+									"pm.environment.set(\"taskType\", jsonData.taskType)"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "assignedBy",
+									"value": "2345",
+									"type": "text"
+								},
+								{
+									"key": "batchId",
+									"value": "222",
+									"type": "text"
+								},
+								{
+									"key": "title",
+									"value": "Test Plan",
+									"type": "text"
+								},
+								{
+									"key": "description",
+									"value": "Write test Plan",
+									"type": "text"
+								},
+								{
+									"key": "taskType",
+									"value": "MID_PROJECT",
+									"type": "text"
+								},
+								{
+									"key": "submissionDate",
+									"value": "2023/04/12",
+									"type": "text"
+								},
+								{
+									"key": "file",
+									"value": "",
+									"type": "file"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/task",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"task"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateTask",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "assignedBy",
+									"value": "5",
+									"type": "text"
+								},
+								{
+									"key": "batchId",
+									"value": "56",
+									"type": "text"
+								},
+								{
+									"key": "title",
+									"value": "API TESTING",
+									"type": "text"
+								},
+								{
+									"key": "description",
+									"value": "string",
+									"type": "text"
+								},
+								{
+									"key": "taskType",
+									"value": "string",
+									"type": "text"
+								},
+								{
+									"key": "submissionDate",
+									"value": "5412/88/10",
+									"type": "text"
+								},
+								{
+									"key": "file",
+									"type": "file",
+									"src": []
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/task/:id",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"task",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "104"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getTask",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/task/:id",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"task",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "{{id}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getTasks",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/task",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"task"
+							],
+							"query": [
+								{
+									"key": "batchId",
+									"value": "55",
+									"disabled": true
+								},
+								{
+									"key": "taskType",
+									"value": null,
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "submitTask",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "taskId",
+									"value": "464",
+									"type": "text"
+								},
+								{
+									"key": "traineeId",
+									"value": "2",
+									"type": "text"
+								},
+								{
+									"key": "description",
+									"value": "string",
+									"type": "text"
+								},
+								{
+									"key": "file",
+									"value": "",
+									"type": "file"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/task/submit",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"task",
+								"submit"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getSubmissionById",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/task/submission/:id",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"task",
+								"submission",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "154"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getSubmissionsByTaskId",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/task/submission/task/:taskId ",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"task",
+								"submission",
+								"task",
+								":taskId "
+							],
+							"variable": [
+								{
+									"key": "taskId ",
+									"value": "102"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "EvaluationController",
+			"item": [
+				{
+					"name": "uploadTaskEvaluation",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"batchId\": 2,\r\n  \"traineeId\": 1,\r\n  \"evaluatorId\": 4,\r\n  \"taskId\":107,\r\n  \"obtainedMark\": 10,\r\n  \"requirementUnderstanding\": 10,\r\n  \"expectedOutput\": 10,\r\n  \"codeQuality\": 10,\r\n  \"demonstrationOrPresentation\": 10,\r\n  \"liveCodingOrCodeUnderstanding\": 10,\r\n  \"taskType\": \"MID_PROJECT\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/evaluation",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"evaluation"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateTaskEvaluation",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"batchId\": 2,\r\n  \"traineeId\": 2,\r\n  \"evaluatorId\": 4,\r\n  \"taskId\":103,\r\n  \"obtainedMark\": 10,\r\n  \"requirementUnderstanding\": 10,\r\n  \"expectedOutput\": 100,\r\n  \"codeQuality\": 10,\r\n  \"demonstrationOrPresentation\": 10,\r\n  \"liveCodingOrCodeUnderstanding\": 10,\r\n  \"taskType\": \"MID_PROJECT\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/evaluation/:id",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"evaluation",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "202"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "uploadHrEvaluation",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id\": 7,\r\n  \"traineeId\":1,\r\n  \"batchId\":2,\r\n  \"hrInterviewMark\": 10,\r\n  \"totalMark\": 10,\r\n  \"obtainedMark\": 100\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/evaluation/ceo",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"evaluation",
+								"ceo"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateHrEvaluation",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id\": 1,\r\n  \"traineeId\":2,\r\n  \"batchId\":2,\r\n  \"hrInterviewMark\": 750,\r\n  \"totalMark\": 10,\r\n  \"obtainedMark\": 100\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/evaluation/ceo/252",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"evaluation",
+								"ceo",
+								"252"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "uploadManagersEvaluation",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"traineeId\":1,\r\n  \"batchId\": 2,\r\n  \"obtainedMark\": 85,\r\n  \"bjitTools\": 0,\r\n  \"officeRules\": 0,\r\n  \"sincerity\": 0,\r\n  \"quality\": 0,\r\n  \"attendance\": 0,\r\n  \"communicationSkill\": 0,\r\n  \"englishLanguageSkill\": 0\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/evaluation/manager",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"evaluation",
+								"manager"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateManagersEvaluation",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"traineeId\": 2,\r\n  \"batchId\": 2,\r\n  \"obtainedMark\": 75,\r\n  \"bjitTools\": 0,\r\n  \"officeRules\": 0,\r\n  \"sincerity\": 0,\r\n  \"quality\": 0,\r\n  \"attendance\": 0,\r\n  \"communicationSkill\": 0,\r\n  \"englishLanguageSkill\": 10\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/evaluation/manager/302",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"evaluation",
+								"manager",
+								"302"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "uploadFinalEvaluation",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"batchId\": 2,\r\n  \"srs\": 0,\r\n  \"wbs\": 0,\r\n  \"designDocument\": 0,\r\n  \"ppt\": 0,\r\n  \"traineeId\": 1,\r\n  \"evaluatorId\": 0,\r\n  \"evaluatedOn\": \"string\",\r\n  \"totalMark\": 0,\r\n  \"obtainedMark\": 100,\r\n  \"requirementUnderstanding\": 0,\r\n  \"expectedOutput\": 0,\r\n  \"codeQuality\": 0,\r\n  \"demonstrationOrPresentation\": 0,\r\n  \"liveCodingOrCodeUnderstanding\": 0\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/evaluation/final-project",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"evaluation",
+								"final-project"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateFinalEvaluation",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"batchId\": 2,\r\n  \"srs\": 0,\r\n  \"wbs\": 0,\r\n  \"designDocument\": 0,\r\n  \"ppt\": 0,\r\n  \"traineeId\":2,\r\n  \"evaluatorId\": 0,\r\n  \"evaluatedOn\": \"string\",\r\n  \"totalMark\": 0,\r\n  \"obtainedMark\": 100,\r\n  \"requirementUnderstanding\": 10,\r\n  \"expectedOutput\": 10,\r\n  \"codeQuality\": 10,\r\n  \"demonstrationOrPresentation\": 10,\r\n  \"liveCodingOrCodeUnderstanding\": 10\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/evaluation/final-project/352",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"evaluation",
+								"final-project",
+								"352"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getEvaluation",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"var jsonData = JSON.parse(responseBody);\r",
+									"var id = jsonData['id'];\r",
+									"pm.environment.set(\"id\", jsonData.id)\r",
+									"var taskType = jsonData['taskType'];\r",
+									"pm.environment.set(\"taskType\", jsonData.taskType)"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/evaluation?batchId={{id}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"evaluation"
+							],
+							"query": [
+								{
+									"key": "batchId",
+									"value": "{{id}}"
+								},
+								{
+									"key": "taskType",
+									"value": "{{taskType}}",
+									"disabled": true
+								},
+								{
+									"key": "date",
+									"value": "2023/10/12",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "FinalScoreController",
+			"item": [
+				{
+					"name": "addRemarks",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"trainerId\": \"5\",\r\n  \"trainerName\": \"Quadir\",\r\n  \"message\": \"Good\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/final-score/feedback/5",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"final-score",
+								"feedback",
+								"5"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": null,
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateRemarks",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/final-score/feedback/{id}?id=1&message=Good",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"final-score",
+								"feedback",
+								"{id}"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "1"
+								},
+								{
+									"key": "message",
+									"value": "Good"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getAllScore",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/final-score",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"final-score"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "generateScore",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/final-score/?recalculate=true",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"final-score",
+								""
+							],
+							"query": [
+								{
+									"key": "recalculate",
+									"value": "true"
+								},
+								{
+									"key": "batchId",
+									"value": "3",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "weight-controller",
+			"item": [
+				{
+					"name": "getWeightage",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/weight",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"weight"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateWeightage",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"dailyTaskEvaluationWeightage\": 10.0,\r\n  \"miniProjectEvaluationWeightage\": 15.0,\r\n  \"midProjectEvaluationWeightage\": 20.0,\r\n  \"finalProjectEvaluationWeightage\": 40.0,\r\n  \"domainWeightage\": 5.0,\r\n  \"managerEvaluationWeightage\": 10.0,\r\n  \"trainingWeightage\": 10.0,\r\n  \"hrInterviewEvaluationWeightage\": 5.0\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/weight",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"weight"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
